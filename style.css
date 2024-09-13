@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;1,600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    background-image: url('img/mar.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#contenedorMenu {
+    width: 0%;
+    border: 2px solid #FFFFFF transparent;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    transition: width 0.3s;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#contenedorMapa {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+#toggleButton {
+    left: 10px;
+    top: 10px;
+    background-color: #FFFFFF;
+    color: black;
+    border: none;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+    width: 30px;
+    height: 30px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    z-index:9999;
+    visibility: visible;
+}
+
+#toggleButton:hover {
+    background-color: #45a049;
+
+}
+#homeButtonContainer {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 9999;
+}
+
+#homeButton {
+    color: black;
+    background-color: #FFFFFF;
+    border: none;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#homeButton:hover {
+    background-color: #45a049;
+}
+
+#FormularioInicio {
+    width: 100%;
+    border: 2px solid #FFFFFF transparent;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    transition: width 0.3s;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh; 
+}
+
+#formRegistro{
+    width: 100%;
+    border: 2px solid #FFFFFF transparent;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    transition: width 0.3s;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+}
+
+h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+#registroLink,#Filtro1,#Filtro2,#Filtro3,#Filtro4 {
+    text-align: center;
+    margin-top: 10px;
+    color: blue;
+    cursor: pointer;
+}
+
+#popupInicioBack,
+#popupI,
+#popupRegistroBack,
+#popupR,
+#popupFiltroBack,
+#popupFiltroGuardado,
+#popupInicioBackErr,
+#popupIErr,
+#popupRegistroBackErr,
+#popupRErr,
+#popupFiltroBackErr,
+#popupFiltroGuardadoErr{
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 300px;
+    padding: 20px;
+    background-color: white;
+    color: black;
+    border: 5px solid #4CAF50; /* Borde fino */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    text-align: center;
+    font-family: 'Roboto', sans-serif; /* Utiliza la fuente Roboto */
+}
+
+
+/* Estilos para los formularios */
+form {
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#mensajeCentral{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.titulo {
+    font-size: 4em;
+    /* Tamaño del texto principal aumentado */
+    margin-bottom: 10px;
+    /* Espaciado inferior ajustado */
+    text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.5);
+    /* Sombra de texto ajustada */
+    color: #FFFFFF;
+    /* Color gris carretera */
+    
+}
+
+.eslogan {
+    font-size: 1.5em;
+    /* Tamaño del eslogan ajustado */
+    color: #FFFFFF;
+    /* Color gris carretera para el eslogan */
+    text-shadow: 1.5px 1.5px 3px rgba(255, 255, 255, 0.5);
+    /* Sombra de texto ajustada */
+    font-family: 'IBM Plex Mono', monospace;
+    /* Fuente diferente para el eslogan */
+    margin-top: 10px;
+    /* Espaciado superior ajustado para el eslogan */
+}
+
+.botonRapido {
+    text-align: center;
+    margin: 20px 0;
+    /* Ajuste de margen general */
+}
+
+.botonMostrarMapa {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: 2px solid #FFFFFF;
+    /* Borde negro de 2px */
+    background: linear-gradient(to top, #45a049 50%, transparent 50%);
+    /* Fondo amarillo suave de abajo hacia arriba */
+    background-size: 100% 200%;
+    /* Tamaño del fondo */
+    transition: background-position 0.3s;
+    /* Transición en el hover */
+}
+
+.botonMostrarMapa:hover {
+    background-position: 0 100%;
+    /* Cambio en la posición del fondo en el hover */
+}
+
+.cajaError {
+    background-color: #ffb6c1;
+    /* Rosa pastel */
+    color: black;
+    font-size: smaller;
+    padding: 0px;
+    margin:10px;
+    /* Inicialmente oculto */
+}
+#bienvenida {
+    display: none;
+}
+#filtroform {
+    display: none;
+}

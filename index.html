@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFFCharge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/destello.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+</head>
+
+<body>
+    <script src="script.js"></script>
+    <button id="toggleButton" onclick="desplegarMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <!-- CONTENEDOR GENERAL DEL MENU -->
+    <div id="contenedorMenu" class="contenedorMenu">
+        <div id="FormularioInicio" class="formularios">
+            <!-- CABECERA DE INICIO DE SESION -->
+            <h2 id="h2Inicio">Bienvenido a OFFCharge</h2>
+            <p id="textoI">Iniciar sesión</p>
+            <!-- FORMULARIO DE INICIO DE SESION-->
+            <form action="server.php" method="post" id="formInicio" name="formInicio" class="formInicio">
+                <!-- Campo para insertar el nombre de usuario -->
+                <label for="nombreUsuarioI" class="labelInicio">Usuario: </label>
+                <input type="text" name="nombreUsuarioI" id="nombreUsuarioI" class="inputInicio" required
+                    oninput="validarNombreUsuarioInicio()">
+                <span id="usuarioError" class="cajaError"></span>
+                <!-- Campo para insertar la contraseña del usuario -->
+                <label for="contraseñaUsuarioI" class="labelInicio">Contraseña: </label>
+                <input type="password" name="contraseñaUsuarioI" id="contraseñaUsuarioI" class="inputInicio" minlength=8
+                    maxlength=16 required onkeydown="eliminarEspacios(event)" oninput="validarContraseñaInicio()">
+                <span id="contraseñaError" class="cajaError"></span>
+                <!-- Boton de enviar el formulario -->
+                <button type="button" id="botonInicio" class="botonesInicio"
+                    onclick="crearObjetoUsuario()">Iniciar</button>
+                <!-- Boton de cancelar el formulario -->
+                <button type="button" id="cancelarInicio" class="botonesInicio" onclick="limpiarFormularioInicio();desplegarMenu()">Cancelar</button>
+                <div id="registroLink" onclick="mostrarR()">¿No estás registrado? Pulsa aquí para registrarte.</div>
+            </form>
+            <form id="formRegistro" name="formRegistro" class="formRegistro" action="server.php" method="post">
+                <!-- Campo para insertar el nombre de usuario -->
+                <label for="nombreUsuarioR" class="labelRegistro">Usuario: </label>
+                <input type="text" name="nombreUsuarioR" id="nombreUsuarioR" class="inputRegistro" oninput="validarNombreUsuarioRegistro()" required>
+                <span id="usuarioErrorR" class="cajaError"></span>
+                <!-- Campo para insertar el correo del usuario -->
+                <label for="correoUsuarioR" class="labelRegistro">Correo electrónico: </label>
+                <input type="email" name="correoUsuarioR" id="correoUsuarioR" class="inputRegistro" oninput="validarCorreoElectronico()"required>
+                <span id="correoErrorR" class="cajaError"></span>
+                <!-- Campo para insertar la contraseña del usuario -->
+                <label for="contraseñaUsuarioR" class="labelRegistro">Contraseña: </label>
+                <input type="password" name="contraseñaUsuarioR" id="contraseñaUsuarioR" class="inputRegistro" minlength=8
+                maxlength=16 required onkeydown="eliminarEspacios(event)" oninput="validarContraseñaRegistro()" >
+                <span id="contraseñaErrorR" class="cajaError"></span>
+                <!-- Campo para insertar la repeticion de la contraseña del usuario -->
+                <label for="RepetirContraseñaUsuarioR" class="labelRegistro">Contraseña: </label>
+                <input type="password" name="RepetirContraseñaUsuarioR" id="RepetirContraseñaUsuarioR" class="inputRegistro" minlength=8
+                maxlength=16 required onkeydown="eliminarEspacios(event)" oninput="validarRepetirContraseña()">
+                <span id="repetircontraseñaErrorR"class="cajaError"></span>
+                <!-- Boton de enviar el formulario -->
+                <button type="button" id="botonRegistro" class="botonesRegistro" onclick="crearObjetoRegistro()">Registrar</button>
+                <!-- Boton de cancelar el formulario -->
+                <button type="button" id="cancelarRegistro" class="botonesRegistro" onclick="limpiarFormularioRegistro();mostrarI()">Cancelar</button>
+                <div id="registroLink" onclick="mostrarI()">¿Ya estás registrado? Pulsa aquí para iniciar sesión.</div>
+            </form>
+            <div id="bienvenida">
+                <h2 id="tituloBienvenida">Bienvenido/a</h2>
+                <button type="button" onclick="mostrarFormularioFiltro();ocultarBienvenida()">Añadir Filtro</button>
+                <button type="button" onclick="mostrarFiltroUsuario()">Mostrar Filtros</button>
+                <button type="button" onclick="location.reload()">Cerrar Sesión</button>
+            </div>
+            <div id="filtrosUsuario" class="filtrosUsuario"style="display:none">
+                <h2 id="tituloFiltro">Filtros del Usuario</h2>
+                    <div id="Filtro1" class="filtro"></div>
+                    <div id="Filtro2" class="filtro"></div>
+                    <div id="Filtro3" class="filtro"></div>
+                    <div id="Filtro4" class="filtro"></div>
+                <button type="button" onclick="ocultarListaFiltros();mostrarBienvenida()">Volver</button> 
+            </div>
+            <form id="filtroForm" style="display:none">
+                <label for="nombreFiltro">Nombre del Filtro:</label>
+                <input type="text" id="nombreFiltro" name="nombreFiltro" required>
+            
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad" required>
+    
+                <label for="codigoPostal">Código Postal:</label>
+                <input type="text" id="codigoPostal" name="codigoPostal" required>
+    
+                <button type="button" onclick="guardarFiltro();mostrarBienvenida()">Guardar</button>
+                <button type="button" onclick="cancelarFiltro()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+    <div id="contenedorMapa" name="contenedorMapa" class="contenedorMapa">
+            <!-- Mensaje inicial con eslogan y boton de muestra rapida-->
+            <div id="mensajeCentral" name="mensajeCentral" class="mensajeCentral">
+                <div class="titulo">OFFCharge</div>
+                <div class="eslogan">"No hay movimiento sin carga"</div>
+                <div class="botonRapido">
+                    <button id="botonMostrarMapa"class="botonMostrarMapa" onclick="ocultarOtrosElementos();llamadaMapaSencillo()">¡ Échale un vistazo rápido !</button>
+                </div>
+            </div>
+             <!-- Mensaje popup de inicio válido-->
+             <div id="popupInicioBack"></div>
+             <div id="popupI">
+                 <p>¡Inicio de sesión correcto!</p>
+                 <button id="popupICerrar" onclick="cerrarPopupInicio()">Cerrar</button>
+             </div>
+             <!-- Mensaje popup de inicio erróneo-->
+             <div id="popupInicioBackErr"></div>
+             <div id="popupIErr">
+                 <p>¡Inicio de sesión erróneo!</p>
+                 <button id="popupICerrarErr" onclick="cerrarPopupInicioErr()">Cerrar</button>
+             </div>
+             <!-- Mensaje popup de registro válido-->
+            <div id="popupRegistroBack"></div>
+            <div id="popupR">
+                <p>¡Gracias por registrarte!</p>
+                <button onclick="cerrarPopupRegistro()">Cerrar</button>
+            </div>
+            <!-- Mensaje popup de registro erróneo-->
+            <div id="popupRegistroBackErr"></div>
+            <div id="popupRErr">
+                <p>¡Error al registrarse!</p>
+                <button onclick="cerrarPopupRegistroErr()">Cerrar</button>
+            </div>
+            <!-- Mensaje popup de filtro guardado-->
+            <div id="popupFiltroBack"></div>
+            <div id="popupFiltroGuardado">
+                <p>¡Filtro guardado!</p>
+                <button onclick="cerrarPopupFiltro()">Cerrar</button>
+            </div>
+            <!-- Mensaje popup de filtro erróneo-->
+            <div id="popupFiltroBackErr"></div>
+            <div id="popupFiltroGuardadoErr">
+                <p>¡Error en el filtro!</p>
+                <button onclick="cerrarPopupFiltroErr()">Cerrar</button>
+            </div>
+    </div>
+    <div id="homeButtonContainer">
+        <button id="homeButton" onclick="location.reload()">
+            <i class="fas fa-home"></i>
+        </button>
+    </div>
+</body>
+</html>
